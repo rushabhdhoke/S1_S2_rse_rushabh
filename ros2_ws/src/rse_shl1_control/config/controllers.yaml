@@ -1,0 +1,52 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+    
+    # List of controllers to be loaded
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    
+    # Grouped steering controller - all 6 steering joints
+    all_steer_position_controller:
+      type: position_controllers/JointGroupPositionController
+    
+    # Grouped drive controller - all 6 drive joints
+    all_drive_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+# All Steering Joints Controller
+# Commands all 6 steering joints together
+# Order: [fl, fr, ml, mr, rl, rr]
+all_steer_position_controller:
+  ros__parameters:
+    joints:
+      - fl_steer_joint
+      - fr_steer_joint
+      - ml_steer_joint
+      - mr_steer_joint
+      - rl_steer_joint
+      - rr_steer_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+
+
+# All Drive Joints Controller
+# Commands all 6 drive joints together
+# Order: [fl, fr, ml, mr, rl, rr]
+all_drive_velocity_controller:
+  ros__parameters:
+    joints:
+      - fl_drive_joint
+      - fr_drive_joint
+      - ml_drive_joint
+      - mr_drive_joint
+      - rl_drive_joint
+      - rr_drive_joint
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
