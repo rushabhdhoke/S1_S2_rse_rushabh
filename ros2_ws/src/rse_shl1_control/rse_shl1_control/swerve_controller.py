@@ -69,6 +69,20 @@ class SwerveController(Node):
         vy = msg.linear.y
         wz = msg.angular.z
         
+        # Apply inverse kinematics to get wheel commands from chassis velocities
+        steer_cmd, drive_cmd = self.apply_inverse_kinematics(vx, vy, wz)
+        
+        # Publish commands
+        steer_msg = Float64MultiArray()
+        steer_msg.data = steer_cmd
+        self.steer_pub.publish(steer_msg)
+        
+        drive_msg = Float64MultiArray()
+        drive_msg.data = drive_cmd
+        self.drive_pub.publish(drive_msg)
+
+    def apply_inverse_kinematics(self, vx, vy, wz):
+        """Calculate wheel commands from chassis velocities"""
         steer_cmd = []
         drive_cmd = []
         
@@ -101,16 +115,8 @@ class SwerveController(Node):
             steer_cmd.append(steering_angle)
             drive_cmd.append(drive_joint_velocity)
         
-        # Publish commands
-        steer_msg = Float64MultiArray()
-        steer_msg.data = steer_cmd
-        self.steer_pub.publish(steer_msg)
-        
-        drive_msg = Float64MultiArray()
-        drive_msg.data = drive_cmd
-        self.drive_pub.publish(drive_msg)
-
-
+        return steer_cmd, drive_cmd
+    
 def main(args=None):
     rclpy.init(args=args)
     node = SwerveController()

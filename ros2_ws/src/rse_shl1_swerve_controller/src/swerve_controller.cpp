@@ -113,7 +113,7 @@ SwerveController::state_interface_configuration() const
   controller_interface::InterfaceConfiguration config;
   config.type = controller_interface::interface_configuration_type::INDIVIDUAL;
 
-  // We need state interfaces for feedback (optional, depending on your needs)
+  // We need state interfaces for feedback
   for (const auto & joint_name : steer_joint_names_)
   {
     config.names.push_back(joint_name + "/" + hardware_interface::HW_IF_POSITION);
