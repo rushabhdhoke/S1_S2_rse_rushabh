@@ -51,7 +51,8 @@ def generate_launch_description():
             FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'
         ])),
         launch_arguments={
-             'gz_args': ['-r ', world]
+            'gz_args': ['-r ', world],
+            'use_sim_time': 'true'
         }.items()
     )
 
@@ -80,6 +81,7 @@ def generate_launch_description():
             '-y', '0.0',
             '-z', '0.5',
         ],
+        parameters=[{'use_sim_time': True}],
         output='screen',
     )
 
@@ -87,23 +89,41 @@ def generate_launch_description():
     load_joint_state_broadcaster = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster'],
+        arguments=['joint_state_broadcaster', '--param-file', 
+                   PathJoinSubstitution([
+                       FindPackageShare('rse_shl1_control'),
+                       'config',
+                       'controllers.yaml'
+                   ])],
+        parameters=[{'use_sim_time': True}],
         output='screen',
     )
 
-    # Load grouped steering controller (all 6 steering joints)
+    # Load grouped steering controller (all 4 or 6 steering joints)
     load_steer_controller = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['all_steer_position_controller'],
+        arguments=['all_steer_position_controller', '--param-file',
+                   PathJoinSubstitution([
+                       FindPackageShare('rse_shl1_control'),
+                       'config',
+                       'controllers.yaml'
+                   ])],
+        parameters=[{'use_sim_time': True}],
         output='screen',
     )
 
-    # Load grouped drive controller (all 6 drive joints)
+    # Load grouped drive controller (all 4 or 6 drive joints)
     load_drive_controller = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['all_drive_velocity_controller'],
+        arguments=['all_drive_velocity_controller', '--param-file',
+                   PathJoinSubstitution([
+                       FindPackageShare('rse_shl1_control'),
+                       'config',
+                       'controllers.yaml'
+                   ])],
+        parameters=[{'use_sim_time': True}],
         output='screen',
     )
 

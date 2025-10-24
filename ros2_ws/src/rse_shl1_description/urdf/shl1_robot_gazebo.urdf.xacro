@@ -669,6 +669,11 @@
     <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>$(find rse_shl1_swerve_controller)/config/swerve_controller.yaml</parameters>
       <parameters>$(find rse_shl1_control)/config/controllers.yaml</parameters>
+      <ros>
+        <namespace></namespace>
+        <remapping>/clock:=/clock</remapping>
+        <parameter name="use_sim_time" type="bool">true</parameter>
+      </ros>
     </plugin>
   </gazebo>
 
