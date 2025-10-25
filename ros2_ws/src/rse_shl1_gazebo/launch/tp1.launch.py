@@ -56,6 +56,16 @@ def generate_launch_description():
         }.items()
     )
 
+    # Launch Gazebo-ROS bridge
+    gazebo_ros_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        output='screen',
+        parameters=[
+            {'config_file': os.path.join(gazebo_pkg_share, 'config', 'ros_gz_bridge.yaml')},
+        ]
+    )
+
     # Launch robot_state_publisher from description package
     description_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([
@@ -136,6 +146,7 @@ def generate_launch_description():
         world_arg,
         gz_resource_path,
         gz_gazebo,
+        gazebo_ros_bridge,
         description_launch,
         spawn_entity,
         load_joint_state_broadcaster_event,
