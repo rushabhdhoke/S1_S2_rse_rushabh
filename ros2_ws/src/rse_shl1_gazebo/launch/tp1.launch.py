@@ -89,40 +89,25 @@ def generate_launch_description():
     load_joint_state_broadcaster = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster', '--param-file', 
-                   PathJoinSubstitution([
-                       FindPackageShare('rse_shl1_control'),
-                       'config',
-                       'controllers.yaml'
-                   ])],
+        arguments=['joint_state_broadcaster'],
         parameters=[{'use_sim_time': True}],
         output='screen',
     )
 
-    # Load grouped steering controller (all 4 or 6 steering joints)
+    # Load grouped steering controller (all 6 steering joints)
     load_steer_controller = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['all_steer_position_controller', '--param-file',
-                   PathJoinSubstitution([
-                       FindPackageShare('rse_shl1_control'),
-                       'config',
-                       'controllers.yaml'
-                   ])],
+        arguments=['all_steer_position_controller'],
         parameters=[{'use_sim_time': True}],
         output='screen',
     )
 
-    # Load grouped drive controller (all 4 or 6 drive joints)
+    # Load grouped drive controller (all 6 drive joints)
     load_drive_controller = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['all_drive_velocity_controller', '--param-file',
-                   PathJoinSubstitution([
-                       FindPackageShare('rse_shl1_control'),
-                       'config',
-                       'controllers.yaml'
-                   ])],
+        arguments=['all_drive_velocity_controller'],
         parameters=[{'use_sim_time': True}],
         output='screen',
     )

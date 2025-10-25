@@ -63,7 +63,7 @@ def generate_launch_description():
         launch_arguments={
             'xacro_file': xacro_file,
             'use_sim_time': 'true',
-            'gui': 'false',  # Don't show joint_state_publisher_gui in simulation
+            'gui': 'false',
             'rviz': 'true'
         }.items()
     )
