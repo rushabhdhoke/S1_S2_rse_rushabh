@@ -1,0 +1,6 @@
+[submodule "ros2_ws/src/rqt_virtual_joystick"]
+	path = ros2_ws/src/rqt_virtual_joystick
+	url = https://github.com/amgaber95/rqt_virtual_joystick
+[submodule "ros2_ws/src/topic_based_ros2_control"]
+	path = ros2_ws/src/topic_based_ros2_control
+	url = https://github.com/PickNikRobotics/topic_based_ros2_control.git
