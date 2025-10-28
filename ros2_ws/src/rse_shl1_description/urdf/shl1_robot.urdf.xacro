@@ -83,7 +83,7 @@
       <xacro:if value="${y > 0}"><origin xyz="0 0.1 0" rpy="0 0 0"/></xacro:if>
       <xacro:unless value="${y > 0}"><origin xyz="0 -0.1 0" rpy="0 0 0"/></xacro:unless>
       <axis xyz="0 0 1"/>
-      <limit lower="-0.785398" upper="0.785398" effort="20" velocity="6.28"/>
+      <limit lower="-1.5708" upper="1.5708" effort="20" velocity="6.28"/>
       <dynamics damping="${STEER_D}"/>
     </joint>
     <link name="${name}_wheel">
